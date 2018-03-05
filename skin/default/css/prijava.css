@@ -1,0 +1,23 @@
+
+.form-inner {
+    padding: 0px 20px;
+}
+.header {
+    font-weight: 300;
+}
+.form-header {
+    font-weight: 500;
+}
+.left-border {
+    border-left: 1px solid #eeeeee;
+}
+.right-border {
+    border-right: 1px solid #eeeeee;
+}
+.file {
+    visibility: hidden;
+    position: absolute;
+}
+button i.glyphicon {
+    top: 4px;
+}

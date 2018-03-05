@@ -1,0 +1,58 @@
+<h2>Layout</h2>
+<p>Template: <?php echo $this->getTemplatePath(); ?></p>
+
+<hr>
+
+<h4>Layout templates</h4>
+
+<p>Layout templates are used to handle main page rendering. They are main HTML files and contain document type definition.
+    <br>All layout and view templates are located in: <code>app/design/</code> folder.</p>
+<p>Core files:
+    <ul>
+        <li><code>/frontend/core/layout/fullWidth.phtml</code></li>
+        <li><code>/frontend/core/layout/leftSidebar.phtml</code></li>
+    </ul>
+</p>
+<p>To override core layout template just place it, with same filename, in local folder. i.e. <code>/frontend/local/layout/leftSidebar.phtml</code></p>
+<p>Those folders definitions are placed in config.php of Core module. Main class that handles layout object rendering is <code>Core_Model_Layout_Abstract</code></p>
+<p>Layout template gets View objects (phtml files) and display them on specific place (head, header, navbar, sidebar, content, footer, bottom).</p>
+
+<hr>
+
+<h4>Core layout (default)</h4>
+<p>Core layout template are defined in class <code>Core_Model_Layout</code></p>
+<p>In controller action <code>$page = $this->getLayout()</code> will always call default core layout.</p>
+
+<hr>
+
+<h4>Use different layout for specific page</h4>
+<p>It can be done by direct selecting layout template in controller or by creating new layout model.</p>
+<ol>
+    <li><strong>Direct method</strong>
+        <br>
+        In controller action method add:<br>
+        <code>$page = $this->getLayout()->setLayoutTemplate('fullWidth.phtml');</code>
+        <p></p>
+    </li>
+    <li><strong>New layout model</strong>
+        <br>
+        <ul>
+            <li>In module <code>config.php</code> add: <code>'layout' => array('default' => 'fullWidth.phtml.phtml',)</code></li>
+            <li>Create file: MyModule/Layout/Default.php</li>
+            <li>In Default.php set layout template:<br>
+                <pre>
+class MyModule_Layout_Default extends Core_Model_Layout_Abstract
+{
+    protected function _init()
+    {
+        $this->setLayoutTemplate(App::getConfig('MyModule','layout/default'));
+    }
+}
+                    </pre>
+
+            </li>
+            <li>In controller: <code>$page = $this->getLayout('mymodule/layout/default')</code></li>
+
+        </ul>
+    </li>
+</ol>

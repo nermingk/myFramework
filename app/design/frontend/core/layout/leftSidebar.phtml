@@ -1,0 +1,33 @@
+<?php $content = $this->getContent();?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--template/html/head.phtml-->
+    <?php $this->getHead()->render(); ?>
+    <title><?php echo $content->getTitle(); ?></title>
+</head>
+
+<body>
+
+<!--Navbar-->
+<?php $this->getNavbar()->render(); ?>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4 col-md-3 sidebar">
+            <!--Sidebar-->
+            <?php $this->getSidebar()->render(); ?>
+        </div>
+        <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+            <!-- Main Content -->
+            <?php //echo get_class($this); ?>
+            <?php $content->render(); ?>
+            <?php if(App::getConfig('Core','layout/showDebug')) $this->getDebug()->render();?>
+        </div>
+
+    </div>
+</div>
+<!-- js files -->
+<?php $this->getBottom()->render(); ?>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<h4>Debug</h4>
+<hr>
+<?php
+$person = new Prijava_Model_Person();
+$person->load(3);
+
+echo "Folder: ".$person->getImagesFolder() . '<br>';
+echo "Path: ".$person->getImagePath() . '<br>';
+echo "URL: ".$person->getImageUrl() . '<br>';
+
+$image = new Varien_Image($person->getImagePath());
+
+/*$image->open();
+$image->keepAspectRatio(true);
+$image->resize(600);
+//$image->process();
+$image->save($person->getImagePath());*/
+
+
+$newImage = new Varien_Image($person->getImagePath());
+echo '<pre>';
+print_r($newImage);
+echo '</pre>';
+
+
+?>
+
+<hr>
+<p>End</p>

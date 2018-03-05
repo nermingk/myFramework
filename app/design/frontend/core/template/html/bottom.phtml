@@ -1,0 +1,15 @@
+<?php
+$skinUrl    = App::getSkinUrl();
+$jsFiles   = App::getConfig('Core','skin/jsFiles');
+$useLess    = App::getConfig('Core','skin/useLess');
+?>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script src="<?php echo $skinUrl; ?>js/jquery-1.12.4.min.js"></script>
+<script>window.jQuery || document.write('<script src="<?php echo $skinUrl; ?>js/jquery.min.js"><\/script>')</script>
+<script src="<?php echo $skinUrl; ?>js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="<?php echo $skinUrl; ?>js/ie10-viewport-bug-workaround.js"></script>
+<?php if($useLess) : ?>
+<script src="<?php echo $skinUrl; ?>js/less.min.js"></script>
+<?php endif; ?>

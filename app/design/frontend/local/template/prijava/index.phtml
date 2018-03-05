@@ -1,0 +1,254 @@
+<?php
+$sectionsColl = new Prijava_Model_Section_Collection();
+$sectionsColl->loadResults();
+$sections = $sectionsColl->getItems();
+# use session values if page is reloaded because of wrong file type
+$_session = false;
+$_section = false;
+if(isset($_SESSION['prijava']))
+{
+    $_session       = $_SESSION['prijava'];
+
+    $_name          = $_session['name'];
+    $_lastName      = $_session['lastname'];
+    $_address       = $_session['address'];
+    $_email         = $_session['email'];
+    $_phone         = $_session['phone'];
+    $_highschool    = $_session['highschool'];
+    $_university    = $_session['university'];
+    $_title         = $_session['title'];
+    $_languages     = $_session['languages'];
+    $_section       = $_session['section'];
+    $_pbp           = false;
+    $_cppb          = false;
+    $_rvi           = false;
+    if(isset($_session['pbp']))     $_pbp   = $_session['pbp'];
+    if(isset($_session['cppb']))    $_cppb  = $_session['cppb'];
+    if(isset($_session['rvi']))     $_rvi   = $_session['rvi'];
+}
+?>
+    <h1 class="header">Prijava</h1>
+    <hr>
+
+<?php if(isset($_SESSION['error'])) : ?>
+    <div class="alert alert-danger">
+        <strong>Greška! </strong> <?php echo $_SESSION['error']; ?>.
+    </div>
+<?php endif;?>
+
+
+<form class="form-horizontal" name="prijava" method="post" action="<?php echo App::getUrl('/prijava/submit')?>" enctype="multipart/form-data">
+    <input type="hidden" name="formkey" value="<?php echo App::getFormkey(); ?>">
+
+    <div class="row">
+
+<!--Left Column-->
+        <div class="col-md-4">
+            <h4 class="form-header">Lični podaci</h4>
+            <hr>
+            <div class="container-fluid";
+
+                <!--Ime-->
+                <div class="form-group">
+                    <label>Ime</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<?php if($_session) echo $_name; ?>" required>
+                </div>
+                <!--Prezime-->
+                <div class="form-group">
+                    <label>Prezime</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" value="<?php if($_session) echo $_lastName; ?>" required>
+                </div>
+                <!--Adresa stanovanja-->
+                <div class="form-group">
+                    <label>Adresa stanovanja</label>
+                    <input type="text" class="form-control" id="address" name="address" value="<?php if($_session) echo $_address; ?>" required>
+                </div>
+                <!--Email-->
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<?php if($_session) echo $_email; ?>" required>
+                </div>
+                <!--Telefon-->
+                <div class="form-group">
+                    <label>Telefon</label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="<?php if($_session) echo $_phone; ?>" required>
+                </div>
+            </div>
+        </div>
+<!--Middle Column-->
+        <div class="col-md-4 left-border right-border">
+            <h4 class="form-header">Ostali podaci</h4>
+            <hr>
+            <div class="container-fluid">
+                <!--Srednja skola-->
+                <div class="form-group">
+                    <label>Završena srednja škola i stečeno zvanje</label>
+                    <input type="text" class="form-control" id="highschool" name="highschool" value="<?php if($_session) echo $_highschool; ?>" required>
+                </div>
+                <!--Fakultet-->
+                <div class="form-group">
+                    <label>Visokoškolska ustanova (zavšena ili u toku)</label>
+                    <input type="text" class="form-control" id="university" name="university" value="<?php if($_session) echo $_university; ?>" required>
+                </div>
+                <!--Zvanje-->
+                <div class="form-group">
+                    <label>Usmjerenje i izlazno zvanje</label>
+                    <input type="text" class="form-control" id="title" name="title" value="<?php if($_session) echo $_title; ?>" required>
+                </div>
+                <!--Jezici-->
+                <div class="form-group">
+                    <label>Poznavanje stranih jezika</label>
+                    <input type="text" class="form-control" id="languages" name="languages" value="<?php if($_session) echo $_languages; ?>" required>
+                </div>
+                <!--Saradnja / Section-->
+                <div class="form-group">
+                    <label>Saradnja za koju aplicirate</label>
+                    <select class="form-control" id="section_select" name="section" required>
+                        <option></option>
+                        <?php foreach($sections as $section) : ?>
+                            <option value="<?php echo $section->getId(); ?>" <?php if($_section == $section->getId()) echo 'selected'; ?>>
+                                <?php echo $section->getName(); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+<!--Right Column-->
+    <div class="col-md-4">
+        <h4 class="form-header">Socijalni i posebni status</h4>
+        <hr>
+        <div class="container-fluid">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="pbp" value="1" <?php if($_session and $_pbp) echo "checked"; ?>>Porodica bez prihoda
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="cppb" value="1" <?php if($_session and $_cppb) echo "checked"; ?>>Član porodice poginulog borca/šehida
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="rvi" value="1" <?php if($_session and $_rvi) echo "checked"; ?>>Ratni vojni invalid
+                </label>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="container-fluid">
+            <hr>
+                <h4 class="form-header">Fotografija / Motivaciono pismo / Biografija / Dodatak</h4>
+            <hr>
+        </div>
+
+        <div class="container-fluid">
+
+            <div class="col-md-3">
+
+                <!--Fotografija-->
+                <div class="form-group">
+                    <input type="file" name="image" class="file" accept=".jpg, .jpeg, .png">
+                    <div class="input-group col-xs-11">
+                        <span class="input-group-addon"><i class="fa fa-picture-o"></i></span>
+                        <input type="text" class="form-control" disabled placeholder="Fotografija">
+                    <span class="input-group-btn">
+                        <button class="browse btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <!--Motivaciono pismo-->
+                <div class="form-group">
+                    <input type="file" name="letter" class="file" accept=".doc, .docx, .pdf">
+                    <div class="input-group col-xs-11">
+                        <span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+                        <input type="text" class="form-control" disabled placeholder="Motivaciono pismo">
+                    <span class="input-group-btn">
+                        <button class="browse btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <!--Biografija-->
+                <div class="form-group">
+                    <input type="file" name="biography" class="file" accept=".doc, .docx, .pdf">
+                    <div class="input-group col-xs-11">
+                        <span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+                        <input type="text" class="form-control" disabled placeholder="Biografija">
+                    <span class="input-group-btn">
+                        <button class="browse btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <!--Dodatak-->
+                <div class="form-group">
+                    <input type="file" name="supplement" class="file" accept=".doc, .docx, .pdf">
+                    <div class="input-group col-xs-11">
+                        <span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+                        <input type="text" class="form-control" disabled placeholder="Dodatak (nije obavezno)">
+                    <span class="input-group-btn">
+                        <button class="browse btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <hr>
+    <div class="row">
+        <div class="container-fluid">
+            <button type="submit" id="submit" class="btn btn-success btn-lg">Prijava</button>
+            <span id="wait" style="visibility: hidden; margin-left: 10px;">
+                <strong>Molimo sačekajte...</strong>
+            </span>
+        </div>
+    </div>
+
+
+</form>
+<?php
+    if(isset($_SESSION['prijava'])) unset($_SESSION['prijava']);
+    if(isset($_SESSION['error'])) unset($_SESSION['error']);
+?>
+
+<script>
+    $(document).on('click', '.browse', function(){
+        var file = $(this).parent().parent().parent().find('.file');
+        file.trigger('click');
+    });
+    $(document).on('change', '.file', function(){
+        $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $("#submit").click(function(){
+            $("#wait").css('visibility','visible');
+        });
+        $("#submit").focusout(function(){
+            $("#wait").css('visibility','hidden');
+        });
+    });
+</script>

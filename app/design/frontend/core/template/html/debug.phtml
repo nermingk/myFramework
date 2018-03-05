@@ -1,0 +1,33 @@
+<hr>
+
+<div class="alert-info">
+    <?php echo "View: ".get_class($this)." # Template: ".$this->getTemplatePath(); ?>
+</div>
+
+<?php
+/*$app = new App();
+echo '<pre>';
+print_r($app->getRoutes());
+echo '</pre>';*/
+
+echo '<h4>Session</h4><pre>';
+print_r($_SESSION);
+echo '</pre>';
+
+echo '<h4>POST</h4><pre>';
+print_r($_POST);
+echo '</pre>';
+
+echo '<h4>GET</h4><pre>';
+print_r($_GET);
+echo '</pre>';
+/*echo '<h4>Server</h4><pre>';
+print_r($_SERVER);
+echo '</pre>';
+
+echo '<h4>Env</h4><pre>';
+print_r($_ENV);
+echo '</pre>';*/
+
+?>
+

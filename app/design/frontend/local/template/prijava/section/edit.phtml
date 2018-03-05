@@ -1,0 +1,21 @@
+<?php
+$item = $this->getItem();
+?>
+<h3>Edit Section</h3>
+<hr>
+<form name="edit-section" method="post" action="<?php echo App::getUrl('/prijava/section/test')?>" enctype="multipart/form-data">
+    <input type="hidden" id="id" name="id" value="<?php echo $item->getId(); ?>">
+    <div class="form-group">
+        <label>Section</label>
+        <input type="text" class="form-control" id="name" name="name" required value="<?php echo $item->getName(); ?>">
+    </div>
+    <div class="form-group">
+        <label>Comment</label>
+        <textarea class="form-control" id="comment" name="comment"><?php echo $item->getComment(); ?></textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputFile">File input</label>
+        <input type="file" id="exampleInputFile" name="photo">
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>

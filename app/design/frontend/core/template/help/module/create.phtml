@@ -1,0 +1,50 @@
+<h2>Module / Create</h2>
+<p>Template: <?php echo $this->getTemplatePath(); ?></p>
+
+<hr>
+
+<h3>Modules</h3>
+
+<p>All modules are stored in:
+<ul>
+    <li><code>/app/code/core/</code> (framework modules)</li>
+    <li><code>/app/code/local/</code> (application specific modules)</li>
+</ul>
+</p>
+<hr>
+
+<h3>1. Register module</h3>
+
+    <h5>i.e. Creating core module: Admin</h5>
+    <p>In folder <code>/app/code/core/</code> create following folder structure</p>
+    <ul>
+        <li><code>/Admin</code></li>
+        <ul>
+            <li><code>/controllers</code></li>
+            <li><code>/etc</code></li>
+            <li><code>/Layout</code></li>
+            <li><code>/Model</code></li>
+            <li><code>/View</code></li>
+        </ul>
+    </ul>
+    <p>In folder<code>/etc/</code> cretae module config file named <code>config.php</code> with basic module info.</p>
+    <pre>
+        return [
+            'module' => 'Admin',
+            'router' => 'admin',
+            'version' => '1.0.0',
+        ];
+    </pre>
+    <p><strong>After that, register Admin model in, for this case, <i>core</i> section of </strong><code>/app/config/modules.map.php</code></p>
+    <pre>
+        return [
+            "core" => [
+                "Core",
+                <strong>"Admin"</strong>,
+                ...
+            ],
+        ];
+    </pre>
+<hr>
+
+<h3>2. Create IndexController</h3>

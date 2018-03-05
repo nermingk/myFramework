@@ -1,0 +1,33 @@
+<?php
+$sections = $this->getItems();
+?>
+<h3>Sections</h3>
+<a href="<?php echo App::getUrl('/prijava/section/add/');?>" class="btn btn-success">Add new</a>
+<hr>
+<table class="table table-striped">
+    <?php foreach($sections as $_section) : ?>
+    <tr>
+        <td>
+            <a href="<?php echo App::getUrl('/prijava/section/edit/'.$_section->getId()) ?>">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </a>
+        </td>
+        <td><?php echo $_section->getName(); ?></td>
+        <td><?php echo $_section->getComment(); ?></td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+<?php
+/*$sec = new Prijava_Model_Section();
+$sec->load(17);
+
+//$sec->setName("New 'names in' quotes");
+$sec->setComment("My commenttttttt xxxxxxxxxxxx");
+$sec->setCustom("jhasjahsjash");
+$sec->save();
+
+
+echo '<pre>';
+print_r($sec);
+echo '</pre>';*/
+?>

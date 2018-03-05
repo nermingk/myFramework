@@ -1,0 +1,30 @@
+<p>debug.phtml</p>
+<?php
+
+$view = new Prijava_View_Success();
+$view->getTemplatePath();
+
+
+
+$email = new Email_Model_Client();
+
+$email->sendTo("nermingk@live.com");
+$email->replyTo("nermingk@gmail.com");
+//$email->sendBccTo('nermin.hadzimejlic@bnp.ba');
+$email->setSubject("Prijava test mail 2");
+
+$email->msgHTML(file_get_contents($view->getTemplatePath()), dirname(__FILE__));
+$email->addAttachment('upload/prijava/5_nermin_hadzimejlic__image.jpg');
+
+/*if(!$email->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $email->ErrorInfo;
+} else {
+    echo 'Message has been sent';
+}*/
+/*echo '<pre>';
+print_r($email);
+echo '</pre>';*/
+?>
+
+<p>End</p>

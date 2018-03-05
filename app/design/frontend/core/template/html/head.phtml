@@ -1,0 +1,32 @@
+<?php
+$skinUrl    = App::getSkinUrl();
+$cssFiles   = App::getConfig('Core','skin/cssFiles');
+$useLess    = App::getConfig('Core','skin/useLess');
+?>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="<?php echo $skinUrl . App::getConfig('Core','skin/favicon'); ?>">
+<!--Google font-->
+<link href="https://fonts.googleapis.com/css?family=Hind:300,500,700&amp;subset=latin-ext" rel="stylesheet">
+<?php if(!$useLess) : ?>
+    <!-- Bootstrap core CSS -->
+    <?php foreach($cssFiles as $_css) : ?>
+    <link href="<?php echo $skinUrl . $_css; ?>" rel="stylesheet">
+    <?php endforeach;?>
+<?php else : ?>
+    <!-- Bootstrap less -->
+    <link href="<?php echo $skinUrl . App::getConfig('Core','skin/lessFile'); ?>" rel="stylesheet/less">
+<?php endif; ?>
+    <!-- always load custom.css last -->
+    <link href="<?php echo $skinUrl . 'css/custom.css'; ?>" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

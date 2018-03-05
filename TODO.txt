@@ -1,0 +1,4 @@
+- session module
+- log module
+- load confihg to session
+- auto-generate admin navigation (use navbar as layout and add navigation as view)
